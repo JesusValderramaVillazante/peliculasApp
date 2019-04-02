@@ -8,15 +8,11 @@ import { RespuestaMDB, Pelicula } from '../interfaces/interfaces';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit{
-  pelicuasRecientes: Pelicula[] = [];
-  slideOpts = {
-    slidesPerView: 1.2,
-    freeMode: true
-  }
+  peliculasRecientes: Pelicula[] = [];
   constructor(private moviesService: MoviesService){}
   ngOnInit(){
     this.moviesService.getFeature().subscribe(resp => {
-      this.pelicuasRecientes = resp.results;
+      this.peliculasRecientes = resp.results;
     });
   }
 }
