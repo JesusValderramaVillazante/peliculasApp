@@ -9,6 +9,10 @@ import { RespuestaMDB, Pelicula } from '../interfaces/interfaces';
 })
 export class Tab1Page implements OnInit{
   pelicuasRecientes: Pelicula[] = [];
+  slideOpts = {
+    slidesPerView: 1.2,
+    freeMode: true
+  }
   constructor(private moviesService: MoviesService){}
   ngOnInit(){
     this.moviesService.getFeature().subscribe(resp => {
