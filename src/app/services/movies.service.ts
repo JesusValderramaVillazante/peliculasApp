@@ -10,13 +10,13 @@ const apiKey = environment.apiKey;
   providedIn: 'root'
 })
 export class MoviesService {
+  private popularesPage = 0;
 
   constructor(private http: HttpClient) { }
 
   private ejecutarQuery<T>(query: string){
     query = URL + query;
     query += `&api_key=${apiKey}&language=es&include_image_languaje=es`;
-    console.log(query);
     return this.http.get<T>(query);
   }
 
@@ -36,10 +36,11 @@ export class MoviesService {
     const fin = `${hoy.getFullYear()}-${mesString}-${ultimoDia}`;
 
     return this.ejecutarQuery<RespuestaMDB>(`/discover/movie?primary_release_date.gte=${inicio}&primary_release_date.lte=${fin}`);
-  }
+  } 
 
-  getPopulares(){
-    const query = '/discover/movie?sort_by=popularity.desc';
+  getPopulares(){  
+    this.popularesPage++;
+    const query = `/discover/movie?sort_by=popularity.desc&page=${this.popularesPage}`;
     return this.ejecutarQuery<RespuestaMDB>(query);
   }
 }
