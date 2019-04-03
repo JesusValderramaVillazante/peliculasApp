@@ -22,7 +22,6 @@ export class DetalleComponent implements OnInit {
 
   ngOnInit() {
     this.moviesService.getPeliculaDetalle(this.id).subscribe(resp => {
-      console.log(resp);
       this.pelicula = resp;
     });
 
