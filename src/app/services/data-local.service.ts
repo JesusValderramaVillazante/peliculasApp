@@ -8,7 +8,9 @@ import { ToastController } from '@ionic/angular';
 })
 export class DataLocalService {
   peliculas: PeliculaDetalle[]=[];
-  constructor(private storage: Storage, private toasCtrl: ToastController) { }
+  constructor(private storage: Storage, private toasCtrl: ToastController) {
+    this.cargarFavorito();
+   }
   async presentToast(message: string){
     const toast = await this.toasCtrl.create({
       message,
@@ -39,5 +41,17 @@ export class DataLocalService {
 
     this.presentToast(mensaje);
     this.storage.set('peliculas', this.peliculas);
+  }
+  async cargarFavorito(){
+    const peliculas = await this.storage.get('peliculas');
+    this.peliculas = peliculas || [];
+    return this.peliculas;
+  }
+
+  async existePelicula(id){
+    id = Number(id);
+    await this.cargarFavorito();
+    const existe = this.peliculas.find(peli => peli.id === id);
+    return (existe) ? true : false;
   }
 }

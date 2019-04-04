@@ -78,7 +78,7 @@
     <ion-buttons slot="end">
       <ion-button (click)="favorito()">
         <ion-label>favorito</ion-label>
-        <ion-icon name="star-outline" slot="end"></ion-icon>
+        <ion-icon [attr.name]="!existe ? 'star-outline' : 'star'" slot="end"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>

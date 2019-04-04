@@ -14,6 +14,8 @@ export class DetalleComponent implements OnInit {
   pelicula: PeliculaDetalle = null;
   oculto = 150;
   actores: Cast[] = [];
+  existe: boolean = false;
+  
   slideOptActores = {
     slidesPerView: 2.8,
     freeMode: true,
@@ -24,7 +26,9 @@ export class DetalleComponent implements OnInit {
     private modalCtrl: ModalController,
     private dataLocal: DataLocalService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.existe = await this.dataLocal.existePelicula(this.id);
+
     this.moviesService.getPeliculaDetalle(this.id).subscribe(resp => {
       this.pelicula = resp;
     });
@@ -36,7 +40,9 @@ export class DetalleComponent implements OnInit {
   regresar(){
     this.modalCtrl.dismiss();
   }
+
   favorito(){
     this.dataLocal.guardarPelicula(this.pelicula);
+    this.existe = !this.existe;
   }
 }
