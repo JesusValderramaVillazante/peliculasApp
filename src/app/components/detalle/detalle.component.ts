@@ -38,7 +38,9 @@ export class DetalleComponent implements OnInit {
     })
   }
   regresar(){
-    this.modalCtrl.dismiss();
+    this.modalCtrl.dismiss({
+      estado: 'update'
+    });
   }
 
   favorito(){
